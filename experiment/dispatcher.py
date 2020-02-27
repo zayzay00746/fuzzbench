@@ -101,9 +101,11 @@ def dispatcher_main():
     # reason.
     multiprocessing.set_start_method('spawn')
 
-    initialize_global_state(experiment_utils.get_cloud_project())
+    if not experiment_utils.IS_LOCAL:
+        initialize_global_state(experiment_utils.get_cloud_project())
 
-    builder.gcb_build_base_images()
+    # !!!
+    # builder.gcb_build_base_images()
 
     experiment_config_file_path = os.path.join(fuzzer_config_utils.get_dir(),
                                                'experiment.yaml')

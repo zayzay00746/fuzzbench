@@ -23,6 +23,7 @@ import time
 
 from typing import List, Tuple
 
+from common import experiment_utils
 from common import logs
 
 LOG_LIMIT_FIELD = 10 * 1024  # 10 KB.
@@ -155,6 +156,9 @@ def execute(  # pylint: disable=too-many-locals,too-many-branches
         output_files = []
     else:
         output_files = output_files[:]
+
+    if experiment_utils.IS_LOCAL:
+        write_to_stdout = True
     if write_to_stdout:
         output_files.append(sys.stdout)
     if output_files:
