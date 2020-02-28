@@ -27,9 +27,7 @@ from typing import List
 
 from common import experiment_utils
 from common import fuzzer_config_utils
-from common import gcloud
 from common import logs
-from common import utils
 from common import yaml_utils
 from database import models
 from database import utils as db_utils
@@ -99,7 +97,6 @@ def dispatcher_main():
     db_utils.initialize()
 
     # !!!
-    from database import models
     models.Base.metadata.create_all(db_utils.engine)
 
     experiment_config_file_path = os.path.join(fuzzer_config_utils.get_dir(),
