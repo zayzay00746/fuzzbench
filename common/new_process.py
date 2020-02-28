@@ -159,8 +159,11 @@ def execute(  # pylint: disable=too-many-locals,too-many-branches
 
     if experiment_utils.IS_LOCAL:
         write_to_stdout = True
+    # !!!
     if write_to_stdout:
         output_files.append(sys.stdout)
+
+    output_files = []
     if output_files:
         kwargs['bufsize'] = 1
         kwargs['close_fds'] = 'posix' in sys.builtin_module_names
