@@ -38,7 +38,7 @@ from experiment import measurer
 from experiment import reporter
 from experiment import scheduler
 
-LOOP_WAIT_SECONDS = 5
+LOOP_WAIT_SECONDS = 5 * 60
 
 # TODO(metzman): Convert more uses of os.path.join to exp_path.path.
 
@@ -74,7 +74,6 @@ class Experiment:
         self.config = yaml_utils.read(experiment_config_filepath)
 
         benchmarks = self.config['benchmarks'].split(',')
-
         self.benchmarks = builder.build_all_measurers(benchmarks)
 
         self.fuzzers = [

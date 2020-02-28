@@ -193,7 +193,6 @@ def run_fuzzer(max_total_time, log_filename):
                                 timeout=max_total_time,
                                 output_files=[log_file],
                                 kill_children=True,
-                                write_to_stdout=True,
                                 env=_get_fuzzer_environment())
     except subprocess.CalledProcessError:
         logs.error('Fuzz process returned nonzero.')

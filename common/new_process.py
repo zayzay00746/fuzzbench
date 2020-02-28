@@ -155,10 +155,8 @@ def execute(  # pylint: disable=too-many-locals,too-many-branches
         output_files = []
     else:
         output_files = output_files[:]
-
     if write_to_stdout:
         output_files.append(sys.stdout)
-    output_files = []
     if output_files:
         kwargs['bufsize'] = 1
         kwargs['close_fds'] = 'posix' in sys.builtin_module_names
