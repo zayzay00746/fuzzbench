@@ -29,6 +29,7 @@ from common import experiment_utils
 from common import fuzzer_config_utils
 from common import gcloud
 from common import logs
+from common import utils
 from common import yaml_utils
 from database import models
 from database import utils as db_utils
@@ -90,13 +91,6 @@ class Experiment:
                                          experiment_utils.get_experiment_name())
 
 
-def initialize_global_state(project: str):
-    """Set up any global state needed by the dispatcher, including
-    authenticating to docker and gcloud and setting the project for gcloud."""
-    # TODO(metzman): Move global state set up into startup script.
-    gcloud.set_default_project(project)
-
-
 def dispatcher_main():
     """Do the experiment and report results."""
     logs.info('Starting experiment.')
@@ -105,12 +99,10 @@ def dispatcher_main():
     # reason.
     multiprocessing.set_start_method('spawn')
 
-    if not experiment_utils.IS_LOCAL:
-        initialize_global_state(experiment_utils.get_cloud_project())
+    builder.gcb_build_base_images()
+    db_utils.initialize()
 
     # !!!
-    # builder.gcb_build_base_images()
-    db_utils.initialize()
     from database import models
     models.Base.metadata.create_all(db_utils.engine)
 
